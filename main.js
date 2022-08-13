@@ -6,11 +6,14 @@ const _ = require("lodash");
 const dailyTask = require("./routes/task-routes");
 const app = express();
 const dbConnection = require("./config/db");
+const user = require("./routes/user-routes");
+const isAuthenticated = require("./utils/is-authenticated");
 
 dbConnection();
 app.use(express.json());
 
-app.use("/dailytask", dailyTask);
+app.use("/dailytask", isAuthenticated, dailyTask);
+app.use("/user", user);
 
 app.get("/getWeather/:city", async (req, res) => {
     const city = req.params.city;
