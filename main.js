@@ -5,7 +5,7 @@ const axios = require("axios");
 const _ = require("lodash");
 const dailyTask = require("./routes/task-routes");
 const app = express();
-const dbConnection = require("./db");
+const dbConnection = require("./config/db");
 
 dbConnection();
 app.use(express.json());
