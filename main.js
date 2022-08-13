@@ -3,16 +3,18 @@ require("dotenv").config();
 const PORT = process.env.PORT;
 const axios = require("axios");
 const _ = require("lodash");
-
+const dailyTask = require("./routes/task-routes");
 const app = express();
+const dbConnection = require("./db");
 
+dbConnection();
 app.use(express.json());
+
+app.use("/dailytask", dailyTask);
 
 app.get("/getWeather/:city", async (req, res) => {
     const city = req.params.city;
-    console.log("Hello", city);
     const cityDetails = await getWeather(city);
-    console.log(cityDetails.data);
     res.send(cityDetails.data);
 })
 
